@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="danmu.manage" ng-controller="MainCtrl">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap-theme.min.css" rel="stylesheet">
+	<link href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+	<title>管理登录</title>
+	<style type="text/css">body {padding-top: 70px;}</style>
+</head>
+<body>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">管理登录</a>
+			</div>
+		</div>
+	</nav>
+	<div class="container">
+		<form class="" id="form-login" method="POST">
+			<div class="form-group">
+				<input type="password" class="form-control" id="password" placeholder="请在这里输入管理密码">
+				&nbsp;
+				<button type="submit" class="btn btn-primary form-control">登录</button>
+			</div>
+		</form>
+	</div>
+
+	<script>
+		(function() {
+			document.querySelector("#form-login").addEventListener('submit', function(e) {
+				e.preventDefault();
+				var xhr = new XMLHttpRequest();
+				xhr.open("POST", "/login");
+				xhr.setRequestHeader('Content-Type', "application/x-www-form-urlencoded");
+				xhr.send("username=admin&password=" + document.querySelector("#password").value);
+				xhr.onreadystatechange = function () {
+					if (xhr.readyState == xhr.DONE) {
+						try {
+							var data = JSON.parse(xhr.responseText);
+							if (data.err === null) {
+								location.href = data.redirect;
+							} else {
+								alert(data.err);
+							}
+						} catch (e) {
+							alert("网络传输：" + e.toString());
+						}
+					}
+				}
+			});
+		})();
+	</script>
+</body>
+</html>
