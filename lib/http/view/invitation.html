@@ -26,8 +26,8 @@ var data = data.data;
 
 	<div class="container text-center">
 		<div class="row">
-			<% if (data.length === 0) { %>
-			<p>您所检索的邀请函不存在，请确认二维码是否正确，谢谢。</p>
+			<% if (data.length === 0 || data[0].remain.toString() == "0") { %>
+			<p>您所检索的邀请函不存在，这代表剩余次数已经用完，或是链接存在问题。请确认二维码是否正确，谢谢。</p>
 			<% } else { %>
 			<% var qrcode = utils.getQrSVG(url);%>
 			<div class="row"><img src="data:image/png;base64,<%=qrcode%>" width="185" height="185" alt="QRCode"/></div>
@@ -48,8 +48,8 @@ var data = data.data;
 			<div class="row">
 				<p>您以管理员权限登录，可以做以下事情：</p>
 				<p>邀请函剩余可邀请人数：<%=data[0].remain%>。</p>
-				<p>邀请函类型：<%=data[0].type == 0 ? "团队" : "个人"%></p>
-				<p>来自<%=data[0].school%><%=(data[0].type == 0 ? "" : "的" + data[0].name)%>。</p>
+				<p>邀请函类型：<%=data[0].type == 1 ? "团队" : "个人"%></p>
+				<p>来自<%=data[0].school%><%=(data[0].type == 1 ? "" : "的" + data[0].name)%>。</p>
 				<p>将页面地址、或二维码、或标识符【<%=data[0].verify%>】转发给他人吧。</p>
 				<p><br/></p>
 				<% if (data[0].remain > 0) { %><p><button id="btn-login" class="btn btn-success">立即为其签到</button></p>
