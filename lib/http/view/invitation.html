@@ -31,16 +31,43 @@ var data = data.data;
 			<% } else { %>
 			<% var qrcode = utils.getQrSVG(url);%>
 			<div class="row"><img src="data:image/png;base64,<%=qrcode%>" width="185" height="185" alt="QRCode"/></div>
+			<% if (!isAuthenticated) { %>
 			<div class="row">
-				<p>嘿！</p>
-				<p>欢迎，来自<%=data[0].school%>的<%=(data[0].type == 0 ? "你" : data[0].name)%>！
-				<p>享受愉快的福州八中社巡吧！</p>
-				<p>该邀请函剩余入场人数：<%=data[0].remain%></p>
+				<p>欢迎来到福州八中，愉快地享受社巡吧！</p>
 				<br/>
 				<p>如果二维码不能扫描，可以使用以下标识符：</p>
 				<p><%=data[0].verify%></p>
+				<p><br/></p>
+				<p><br/></p>
+				<p>邀请函有以下功能：</p>
+				<p>1. 八中吉祥山校区→三江口校区、免费往程车票</p>
+				<p>2. 兑换社团巡演地图手册</p>
+				<p>3. 三江口校区→八中吉祥山校区、免费返程车票</p>
 				</div>
-			<% }%></div>
+			<% } else {%>
+			<div class="row">
+				<p>您以管理员权限登录，可以做以下事情：</p>
+				<p>邀请函剩余可邀请人数：<%=data[0].remain%>。</p>
+				<p>邀请函类型：<%=data[0].type == 0 ? "团队" : "个人"%></p>
+				<p>来自<%=data[0].school%><%=(data[0].type == 0 ? "" : "的" + data[0].name)%>。</p>
+				<p>将页面地址、或二维码、或标识符【<%=data[0].verify%>】转发给他人吧。</p>
+				<p><br/></p>
+				<% if (data[0].remain > 0) { %><p><button id="btn-login" class="btn btn-success">立即为其签到</button></p>
+				<% }%>
+			<script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.js"></script>
+			<script>
+			$("#btn-login").click(function() {
+				if (confirm("确认是否为其签到？")) {
+					$.post("<%=url%>", function(data) {
+						alert(data);
+					})
+				}
+			})
+			</script>
+			</div>
+			<% } %>
+			<% } %>
+			</div>
 			<div class="row">
 				<p><br/></p>
 				<p>Powered by <a href="http://www.zsxsoft.com" target="_blank">zsx</a></p>
