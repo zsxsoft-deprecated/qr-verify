@@ -16,8 +16,8 @@
         <a class="navbar-brand" href="#">系统管理</a>
       </div>
       <ul class="nav navbar-nav navbar-left">
-        <li><a href="#">添加邀请</a></li>
-        <li class="active"><a href="/print">查看邀请</a></li>
+        <li><a href="/manage">添加邀请</a></li>
+        <li class="active"><a href="#">查看邀请</a></li>
         </ul>
       </div>
     </nav>
@@ -47,7 +47,7 @@
     <table class="table table-hover table-striped">
       <tr><th>ID</th><th>学校 / 类型 / 姓名</th><th>详细信息</th><th>邀请时间</th><th>剩余 / 全部</th><th>操作</th></tr>
       <% data.forEach(function(obj) {%>
-      <tr><td><%=obj.id%></td><td><%=obj.school%> / <%=obj.type === 1 ? "团队" : "个人"%> / <%=obj.name%></td><td><%=obj.description%></td><td><%=new Date(obj.addtime * 1000).toLocaleString()%></td><td><span id="remain-<%=obj.verify%>"><%=obj.remain%></span> / <span id="all-<%=obj.verify%>"><%=obj.all%></span></td><td><button class="btn btn-open btn-success btn-xs" data-verify="<%=obj.verify%>">邀请</button> <button class="btn btn-edit btn-default btn-xs" data-verify="<%=obj.verify%>" data-remain="<%=obj.remain%>" data-name="<%=obj.school%> / <%=obj.type === 1 ? "团队" : "个人"%> / <%=obj.name%>">增减剩余邀请人数</button></td></tr>
+      <tr><td><%=obj.id%></td><td><%=obj.school%> / <%=obj.type === 1 ? "团队" : "个人"%> / <%=obj.name%></td><td><%=obj.description%></td><td><%=utils.getTime(obj.addtime * 1000)%></td><td><span id="remain-<%=obj.verify%>"><%=obj.remain%></span> / <span id="all-<%=obj.verify%>"><%=obj.all%></span></td><td><button class="btn btn-open btn-success btn-xs" data-verify="<%=obj.verify%>">邀请</button> <button class="btn btn-edit btn-default btn-xs" data-verify="<%=obj.verify%>" data-remain="<%=obj.remain%>" data-name="<%=obj.school%> / <%=obj.type === 1 ? "团队" : "个人"%> / <%=obj.name%>">增减剩余邀请人数</button></td></tr>
       <% });%>
     </table>
     </div>
