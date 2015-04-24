@@ -1,95 +1,93 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="danmu.manage" ng-controller="MainCtrl">
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap-theme.min.css" rel="stylesheet">
-	<link href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
-	<title>系统管理</title>
-	<style type="text/css">body {padding-top: 70px;}</style>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap-theme.min.css" rel="stylesheet">
+  <link href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <title>系统管理</title>
+  <style type="text/css">body {padding-top: 70px;}</style>
 </head>
 <body>
-	<nav class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="#">系统管理</a>
-			</div>
-		</div>
-	</nav>
-	<div class="container">
-		<div class="panel-group" id="accordionInvite" role="tablist" aria-multiselectable="true">
-  <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingInvite">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordionInvite" href="#collapseInvite" aria-expanded="true" aria-controls="collapseInvite">添加邀请
-        </a>
-      </h4>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">系统管理</a>
+      </div>
     </div>
-    <div id="collapseInvite" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingInvite">
-      <div class="panel-body">
-<form class="form-horizontal" id="inviteSomebody">
-  <div class="form-group">
-    <label for="inputSchool" class="col-sm-2 control-label">学校</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="inputSchool" placeholder="被邀请人学校">
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="inputName" class="col-sm-2 control-label">姓名</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="inputName" placeholder="如类型为团体可不填">
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="inputType" class="col-sm-2 control-label">类型</label>
-    <div class="col-sm-10">
-    <label><input type="radio" id="inputType1" name="inputType" data-type="0" checked>个人</label>
-    <label><input type="radio" id="inputType2" name="inputType" data-type="1">团体</label>
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="inputCount" class="col-sm-2 control-label">邀请人数</label>
-    <div class="col-sm-10">
-      <input type="number" class="form-control" id="inputCount" placeholder="" value="1" min="1">
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="inputDescription" class="col-sm-2 control-label">详细信息</label>
-    <div class="col-sm-10">
-      <textarea class="form-control" id="inputDescription"></textarea>
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-default">邀请</button>
-    </div>
-  </div>
-</form>
-</div>
-    </div>
-  </div>
+  </nav>
+  <div class="container">
+    <div class="panel-group" id="accordionInvite" role="tablist" aria-multiselectable="true">
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingInvite">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordionInvite" href="#collapseInvite" aria-expanded="true" aria-controls="collapseInvite">添加邀请</a>
+          </h4>
+        </div>
+        <div id="collapseInvite" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingInvite">
+          <div class="panel-body">
+            <form class="form-horizontal" id="inviteSomebody">
+              <div class="form-group">
+                <label for="inputSchool" class="col-sm-2 control-label">学校</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="inputSchool" placeholder="被邀请人学校"></div>
+              </div>
+              <div class="form-group">
+                <label for="inputName" class="col-sm-2 control-label">姓名</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="inputName" placeholder="如类型为团体可不填"></div>
+              </div>
+              <div class="form-group">
+                <label for="inputType" class="col-sm-2 control-label">类型</label>
+                <div class="col-sm-10">
+                  <label>
+                    <input type="radio" id="inputType1" name="inputType" data-type="0" checked>个人</label>
+                  <label>
+                    <input type="radio" id="inputType2" name="inputType" data-type="1">团体</label>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputCount" class="col-sm-2 control-label">邀请人数</label>
+                <div class="col-sm-10">
+                  <input type="number" class="form-control" id="inputCount" placeholder="" value="1" min="1"></div>
+              </div>
+              <div class="form-group">
+                <label for="inputDescription" class="col-sm-2 control-label">详细信息</label>
+                <div class="col-sm-10">
+                  <textarea class="form-control" id="inputDescription"></textarea>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                  <button type="submit" class="btn btn-default">邀请</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
 
-</div>
+    </div>
 
-	</div>
-	<script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.js"></script>
-	<script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script>
+  </div>
+  <script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.js"></script>
+  <script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+  <script>
 $(function() {
-	$("#inviteSomebody").submit(function(e) {
-		e.preventDefault();
-		var postData = {
-			school: $("#inputSchool").val(),
-			name: $("#inputName").val(),
-			all: $("#inputCount").val(),
-			description: $("#inputDescription").val(),
-			type: $("[name='inputType']:checked").data("type")
-		};
-		$.post("/invitation/add/", postData, function(data) {
-			window.open("/invitation/" + data.key, "_blank");
-		});
-	});
+  $("#inviteSomebody").submit(function(e) {
+    e.preventDefault();
+    var postData = {
+      school: $("#inputSchool").val(),
+      name: $("#inputName").val(),
+      all: $("#inputCount").val(),
+      description: $("#inputDescription").val(),
+      type: $("[name='inputType']:checked").data("type")
+    };
+    $.post("/invitation/add/", postData, function(data) {
+      window.open("/invitation/" + data.key, "_blank");
+    });
+  });
 });
 </script>
 </body>
