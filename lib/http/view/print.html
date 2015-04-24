@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="danmu.manage" ng-controller="MainCtrl">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap-theme.min.css" rel="stylesheet">
+  <link href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <title>系统管理</title>
+  <style type="text/css">body {padding-top: 70px;}</style>
+</head>
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">系统管理</a>
+      </div>
+      <ul class="nav navbar-nav navbar-left">
+        <li><a href="#">添加邀请</a></li>
+        <li class="active"><a href="/print">查看邀请</a></li>
+        </ul>
+      </div>
+    </nav>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.js"></script>
+    <script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script>
+    $(document).delegate(".btn-open", "click", function() {
+      window.open("/invitation/" + this.getAttribute("data-verify"), "_blank");
+    });
+    $(document).delegate(".btn-edit", "click", function() {
+      var name = this.getAttribute("data-name");
+      var remain = this.getAttribute("data-remain");
+      var verify = this.getAttribute("data-verify");
+      var inp = prompt("正在修改：" + name + "\n剩余：" + remain + "\n\n这里的修改是增量修改，而不是直接修改总数。即原来1000时这里输入1后变为1001而不是1。\n\n输入正数则会在增加总票数的同时增加剩余票数，输入负数则总票数不变，可用剩余票数减少。");
+      var plus = parseInt(inp);
+      if (plus === NaN || plus === 0) return;
+      $.post("/edit/" + verify, {plus: plus}, function(data) {
+          alert(data);
+          $("#remain-" + verify).html(parseInt($("#remain-" + verify).html()) + plus);
+          if (plus > 0) {
+            $("#all-" + verify).html(parseInt($("#all-" + verify).html()) + plus);
+          }
+      });
+    });
+    </script>
+    <div class="container">
+    <table class="table table-hover table-striped">
+      <tr><th>ID</th><th>学校 / 类型 / 姓名</th><th>详细信息</th><th>邀请时间</th><th>剩余 / 全部</th><th>操作</th></tr>
+      <% data.forEach(function(obj) {%>
+      <tr><td><%=obj.id%></td><td><%=obj.school%> / <%=obj.type === 1 ? "团队" : "个人"%> / <%=obj.name%></td><td><%=obj.description%></td><td><%=new Date(obj.addtime * 1000).toLocaleString()%></td><td><span id="remain-<%=obj.verify%>"><%=obj.remain%></span> / <span id="all-<%=obj.verify%>"><%=obj.all%></span></td><td><button class="btn btn-open btn-success btn-xs" data-verify="<%=obj.verify%>">邀请</button> <button class="btn btn-edit btn-default btn-xs" data-verify="<%=obj.verify%>" data-remain="<%=obj.remain%>" data-name="<%=obj.school%> / <%=obj.type === 1 ? "团队" : "个人"%> / <%=obj.name%>">增减剩余邀请人数</button></td></tr>
+      <% });%>
+    </table>
+    </div>
+
+</body>
+  </html>
