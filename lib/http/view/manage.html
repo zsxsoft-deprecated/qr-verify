@@ -72,14 +72,33 @@
             </div>
           </div>
         </div>
-
       </div>
-
+      <div class="panel-group" id="accordionStatus" role="tablist" aria-multiselectable="true">
+        <div class="panel panel-default">
+          <div class="panel-heading" role="tab" id="headingStatus">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#collapseStatus" href="#collapseStatus" aria-expanded="true" aria-controls="collapseStatus">调整签到状态</a>
+            </h4>
+          </div>
+          <div id="collapseStatus" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingStatus">
+            <div class="panel-body">
+                <button class="btn btn-success" id="statusChanger">当前状态：来校签到</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.js"></script>
     <script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <script>
 $(function() {
+  $("#statusChanger").click(function() {
+      var $dom = $(this);
+      $dom.toggleClass("btn-success").toggleClass("btn-danger");
+      $.post("/config/login", function(data) {
+          $dom.text(data);
+      });
+  });
   $("#inviteSomebody").submit(function(e) {
     e.preventDefault();
     var postData = {
@@ -90,7 +109,7 @@ $(function() {
       type: $("[name='inputType']:checked").data("type")
     };
     $.post("/invitation/add/", postData, function(data) {
-      window.open("/invitation/" + data.key, "_blank");
+      prompt("这个地址请不要直接在浏览器里打开，否则将为其自动签到。可以将其复制转发给他人。", location.origin + "/invitation/" + data.key);
     });
   });
 });

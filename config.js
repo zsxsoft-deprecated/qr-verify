@@ -1,4 +1,5 @@
 module.exports = {
+	isLogin: true, // 默认为来校验证或是离校验证
 	manage: {
 		password: "123456" // 管理员密码
 	},

@@ -1,0 +1,21 @@
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>扫描结果</title>
+</head>
+<body>
+<% if (err === null) { %>
+<p>已经为其成功签到，类型为<span style="color:red"><%=config.isLogin ? "来校签到" : "离校签到"%></span>。</p>
+<p>
+剩余来校次数：<%= config.isLogin ? parseInt(data[0].remain - 1) : data[0].remain%>；
+剩余离校次数：<%= !config.isLogin ? parseInt(data[0].leaveremain - 1) : data[0].leaveremain%>；
+<p>邀请函类型：<%=data[0].type == 1 ? "团队" : "个人"%></p>
+<p>邀请：<%=data[0].school%><%=(data[0].type == 1 ? "" : "的" + data[0].name)%>。</p>
+<% } else {%>
+<p>签到失败：<%=err%></p>
+<p>签到类型为<span style="color:red"><%=config.isLogin ? "来校签到" : "离校签到"%></span>。</p>
+<% } %>
+</body>
+</html>

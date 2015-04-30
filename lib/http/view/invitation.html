@@ -26,45 +26,56 @@ var data = data.data;
 
 	<div class="container text-center">
 		<div class="row">
-			<% if (data.length === 0 || data[0].remain <= 0) { %>
+			<% if (data.length === 0) { %>
 			<p>您所检索的邀请函不存在，这代表剩余次数已经用完，或是链接存在问题。请确认二维码是否正确，谢谢。</p>
 			<% } else { %>
 			<% var qrcode = utils.getQrSVG(url);%>
 			<div class="row"><img src="data:image/png;base64,<%=qrcode%>" width="185" height="185" alt="QRCode"/></div>
 			<% if (!isAuthenticated) { %>
 			<div class="row">
-				<p>欢迎来到福州八中，愉快地享受社巡吧！</p>
+				<p><%=data[0].school%><%=(data[0].type == 1 ? "" : "的" + data[0].name)%>，欢迎来到福州八中，愉快地享受社巡吧！</p>
 				<br/>
-				<p>如果二维码不能扫描，可以使用以下标识符：</p>
+				<!--<p>如果二维码不能扫描，可以使用以下标识符：</p>
 				<p><%=data[0].verify%></p>
-				<p><br/></p>
+				<p><br/></p>-->
 				<p><br/></p>
 				<p>邀请函有以下功能：</p>
 				<p>1. 八中吉祥山校区→三江口校区、免费往程车票</p>
 				<p>2. 兑换社团巡演地图手册</p>
 				<p>3. 三江口校区→八中吉祥山校区、免费返程车票</p>
+				<p><a href="http://invitation.zsxsoft.com/help/">查看邀请函帮助</a></p>
+				<p><br/></p>
+				<p><br/></p>
+				<p>剩余来校次数：<%= data[0].remain%>；剩余离校次数：<%= data[0].leaveremain%></p>
 				</div>
 			<% } else {%>
 			<div class="row">
-				<p>您以管理员权限登录，可以做以下事情：</p>
-				<p>邀请函剩余可邀请人数：<%=data[0].remain%>。</p>
+				<p>您以管理员权限登录。：</p>
+				<p>剩余来校次数：<%= data[0].remain%>；剩余离校次数：<%= data[0].leaveremain%></p>
 				<p>邀请函类型：<%=data[0].type == 1 ? "团队" : "个人"%></p>
 				<p>来自<%=data[0].school%><%=(data[0].type == 1 ? "" : "的" + data[0].name)%>。</p>
 				<p>将页面地址、或二维码、或标识符【<%=data[0].verify%>】转发给他人吧。</p>
-				<p><br/></p>
-				<% if (data[0].remain > 0) { %><p><button id="btn-login" class="btn btn-success">立即为其签到</button></p>
-				<% }%>
+				<p><br/></p><p><br/></p>
+				<!--<p><% if (data[0].remain > 0) { %><button id="btn-login" class="btn btn-success">来校签到</button></p><% }%>
+				<p><% if (data[0].leaveremain > 0) { %><button id="btn-logout" class="btn btn-danger">离校签到</button></p><% }%>
 			<script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.js"></script>
 			<script>
 			$("#btn-login").click(function() {
-				if (confirm("确认是否为其签到？")) {
-					$.post("<%=url%>", function(data) {
+				if (confirm("确认是否来校签到？\n\n<%=data[0].school%><%=(data[0].type == 1 ? "" : "的" + data[0].name)%>\n\n剩余来校次数：<%=data[0].remain%>")) {
+					$.post("<%=url%>", {islogin: true}, function(data) {
 						alert(data);
 					})
 				}
-			})
+			});
+			$("#btn-logout").click(function() {
+				if (confirm("确认是否离校签到？\n\n<%=data[0].school%><%=(data[0].type == 1 ? "" : "的" + data[0].name)%>\n\n剩余离校次数：<%=data[0].leaveremain%>")) {
+					$.post("<%=url%>", {islogin: false}, function(data) {
+						alert(data);
+					})
+				}
+			});
 			</script>
-			</div>
+			</div>-->
 			<% } %>
 			<% } %>
 			</div>
@@ -74,5 +85,14 @@ var data = data.data;
 				<p><a href="http://www.miitbeian.gov.cn/" target="_blank" rel="nofollow">闽ICP备15006942号</a></p>
 			</div>
 	</div>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e676290db1a063d7eabcc30211f4000b";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
 </body>
 </html>
